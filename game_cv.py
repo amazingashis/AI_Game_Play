@@ -35,53 +35,24 @@ while True:
     if frame is None:
         break
     
-    #image = cv2.imread('1.jpeg')
+
     image = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
     image = imutils.resize(image,width=400,height= 700)
-    left = cv2.imread('left1.JPG')
-    #h, w = left.shape[::]
+    left = cv2.imread('Capture1.JPG')
+
     
     left = cv2.cvtColor(left,cv2.COLOR_BGR2GRAY)
-    #cv2.imshow("left",left)
-    right = cv2.imread('right1.JPG')
+
+    right = cv2.imread('Capture2.JPG')
     right = cv2.cvtColor(right,cv2.COLOR_BGR2GRAY)
-    '''
-    frame = cv2.imread('1.jpeg')
-    frame = imutils.resize(frame,width=400,height= 700)
-    gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray,(5,5),0)
-    edged = cv2.Canny(blur,150,160)
-    cv2.imshow("blurred", edged)
-    contour = cv2.findContours(edged.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-    cnts = imutils.grab_contours(contour)
 
-    count = None
-
-    if len(cnts) >0:
-        #cnts = sorted(cnts,key= cv2.contourArea,reverse=True)
-        for c in cnts:
-            peri = cv2.arcLength(c,True)
-            approx = cv2.approxPolyDP(c,0.09*peri,True)
-
-            if len(approx) == 4:
-                #count.append(approx)
-                count = approx
-                break
-
-    #print(len(c))
-    for c in count:
-
-        cv2.drawContours(frame,[c],-1,(0,255,0),2)
 
     
 
 
-    '''
     res = cv2.matchTemplate(image, left, cv2.TM_SQDIFF)
     res1 = cv2.matchTemplate(image, right, cv2.TM_SQDIFF)
-    #plt.imshow(res, cmap='gray')
-    
-    #cv2.imshow(res, cmap='gray')
+
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
     min_val1, max_val1, min_loc1, max_loc1 = cv2.minMaxLoc(res1)
 
@@ -91,10 +62,44 @@ while True:
     bottom_right1 = (top_left1[0] + 100, top_left1[1] + 75)
 
     cv2.rectangle(image, top_left, bottom_right, 255, 2)  #White rectangle with thickness 2. 
+    cv2.putText(image,"Capture1",top_left,cv2.FONT_HERSHEY_COMPLEX,0.3,(0,255,0))
     cv2.rectangle(image, top_left1, bottom_right1, 255, 2)
+    cv2.putText(image,"Capture2",top_left1,cv2.FONT_HERSHEY_COMPLEX,0.3,(0,255,0))
+
+    
+
+    #Rignt Side:
+
+    left3 = cv2.imread('Capture3.JPG')
+
+    
+    left3 = cv2.cvtColor(left3,cv2.COLOR_BGR2GRAY)
+
+    right3 = cv2.imread('Capture4.JPG')
+    right3 = cv2.cvtColor(right3,cv2.COLOR_BGR2GRAY)
+
+
+    
+
+
+    res3 = cv2.matchTemplate(image, left, cv2.TM_SQDIFF)
+    res4 = cv2.matchTemplate(image, right, cv2.TM_SQDIFF)
+
+    min_val3, max_val3, min_loc3, max_loc3 = cv2.minMaxLoc(res3)
+    min_val4, max_val4, min_loc4, max_loc4 = cv2.minMaxLoc(res4)
+
+    top_left3 = min_loc3  #Change to max_loc for all except for TM_SQDIFF
+    top_left4 = min_loc4
+    bottom_right3 = (top_left3[0] + 100, top_left3[1] + 75)
+    bottom_right4 = (top_left4[0] + 100, top_left4[1] + 75)
+
+    cv2.rectangle(image, top_left3, bottom_right3, 255, 2)  #White rectangle with thickness 2. 
+    cv2.putText(image,"Capture3",top_left3,cv2.FONT_HERSHEY_COMPLEX,0.3,(0,255,0))
+    cv2.rectangle(image, top_left4, bottom_right4, 255, 2)
+    cv2.putText(image,"Capture4",top_left4,cv2.FONT_HERSHEY_COMPLEX,0.3,(0,255,0))
+
 
     cv2.imshow("Matched image", image)
-
     #cv2.imshow("frame",frame)
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break

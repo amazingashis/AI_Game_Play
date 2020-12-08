@@ -5,7 +5,7 @@ print(pyautogui.position())
 
 
 
-
+''''
 
 
 ap = argparse.ArgumentParser()
@@ -37,11 +37,11 @@ if len(cnts) >0:
             count = approx
             break
 
-'''         
+       
 print(len(c))
 for c in count:
     cv2.drawContours(image,[c],-1,(0,255,0),2)
-'''
+
 #plate = four_point_transform(image,count.reshape(4,2))
 cv2.drawContours(image,[count],-1,(0,255,0),2)
 fplate = four_point_transform(gray,count.reshape(4,2))
@@ -64,3 +64,4 @@ cv2.destroyAllWindows()
 
 
 
+'''
